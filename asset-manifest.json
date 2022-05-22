@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/kuteblog/static/css/main.073c9b0a.css",
-    "main.js": "/kuteblog/static/js/main.7d74d452.js",
+    "main.css": "/kuteblog/static/css/main.41e28c46.css",
+    "main.js": "/kuteblog/static/js/main.beaf79f4.js",
     "static/js/787.4d2780d5.chunk.js": "/kuteblog/static/js/787.4d2780d5.chunk.js",
-    "static/media/logo.svg": "/kuteblog/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/kuteblog/index.html",
-    "main.073c9b0a.css.map": "/kuteblog/static/css/main.073c9b0a.css.map",
-    "main.7d74d452.js.map": "/kuteblog/static/js/main.7d74d452.js.map",
+    "main.41e28c46.css.map": "/kuteblog/static/css/main.41e28c46.css.map",
+    "main.beaf79f4.js.map": "/kuteblog/static/js/main.beaf79f4.js.map",
     "787.4d2780d5.chunk.js.map": "/kuteblog/static/js/787.4d2780d5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.7d74d452.js"
+    "static/css/main.41e28c46.css",
+    "static/js/main.beaf79f4.js"
   ]
 }
