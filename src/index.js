@@ -7,6 +7,9 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import postReducer from "./reducer/postReducer";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const store = configureStore({
     reducer: { postReducer }
@@ -17,7 +20,9 @@ root.render(
   <ChakraProvider>
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </Provider>
     </React.StrictMode>
   </ChakraProvider>

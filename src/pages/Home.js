@@ -5,48 +5,50 @@ import { Button, Center, Box, Text, Flex, Spacer, Heading  } from '@chakra-ui/re
 import { CloseIcon, EditIcon  } from '@chakra-ui/icons'
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import { useScrollDirection, useScrollPosition } from '../hooks/useScrollDirection'
 import ABasePage from './ABasePage'
 import useFetchFbCollection from "../hooks/useFetchFbCollection";
 
 const ListPost = ({isAuth}) => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
     const [allPosts, setAllPosts] = useState([])
+
+    const [loadMoreText, setLoadMoreText] = useState('loading...')
     const navigate = useNavigate()
-    const { status, data } = useFetchFbCollection('posts')
-    const postsCollectionRef = collection(db, 'posts')
+    const { status, data, fetchData } = useFetchFbCollection('posts', () => {
+        setLoadMoreText('no data left ^_^')
+    })
 
     useEffect(() => {
-        // if (localStorage.getItem('allPosts')) {
-        //     console.log(localStorage.getItem('allPosts'))
-        //     setAllPosts(localStorage.getItem('allPosts'))
-        // } else {
-        //     getPosts()
-        // }
-        setAllPosts(data)
+        let newData = [...allPosts, ...data]
+        setAllPosts(newData)
     }, [data])
 
-    const getPosts = async () => {
-        const data = await getDocs(postsCollectionRef)
-        setAllPosts(prev => {
-            prev = data.docs.map(doc => ({...doc.data(), id: doc.id}))
-            localStorage.setItem('allPosts', prev)
-            return prev
-        })
-    }
+    useScrollPosition((position, scrollHeight) => {
+        if (position === scrollHeight && loadMoreText.indexOf('no data') === -1) {
+            loadMore();
+        }
+      })
 
     const deletePost = async (id) => {
         const postDoc = doc(db, "posts", id)
         await deleteDoc(postDoc)
-        getPosts()
+        fetchData()
     }
 
     const editPost = async (id) => {
         navigate('/kuteblog/editpost/' + id)
     }
 
+    const loadMore = () => {
+        fetchData(true);
+    }
+
     return (
         <Box bg='yellowgreen' pt='2' pb='2'>
             {
-                allPosts.map(post => {
+                !isLoading && allPosts.map(post => {
                     return <Box borderWidth='1px' borderRadius='lg' overflow='hidden' p='3' m='6' bg={'white'} >
                         <Center mb={'2'}>
                             <Heading size={'sm'}>
@@ -77,6 +79,12 @@ const ListPost = ({isAuth}) => {
                     </Box>
                     })
             }
+            {
+                isLoading
+                    ? <Center onClick={loadMore} color='white'>{loadMoreText}</Center> 
+                    : <div></div>
+            }
+            
         </Box>
     )
 }
