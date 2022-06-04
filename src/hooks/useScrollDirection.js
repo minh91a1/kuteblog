@@ -37,7 +37,7 @@ export const useScrollDirection = callback => {
 
 export const useScrollPosition = callback => {
   const handleScroll = (ev) => {
-    callback(ev.originalTarget.scrollTop + ev.originalTarget.offsetHeight, ev.originalTarget.scrollHeight)
+    callback(ev.originalTarget.scrollTop, ev.originalTarget.scrollTop + ev.originalTarget.offsetHeight, ev.originalTarget.scrollHeight)
   }
 
   useEffect(() => {

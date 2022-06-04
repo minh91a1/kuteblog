@@ -1,23 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import { createRoot } from 'react-dom/client';
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+// UI
 import { ChakraProvider } from '@chakra-ui/react'
+
+// STORAGE REDUX
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import postReducer from "./reducer/postReducer";
+import scrollReducer from "./reducer/scrollReducer";
+
+// QUERY CACHE
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 
 const store = configureStore({
-    reducer: { postReducer }
+    reducer: { 
+      scroll: scrollReducer, 
+    }
 })
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById("root"));
 root.render(
-  <ChakraProvider>
+<ChakraProvider>
     <React.StrictMode>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
