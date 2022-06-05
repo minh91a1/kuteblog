@@ -64,21 +64,25 @@ const ListPost = ({isAuth}) => {
       })
 
       useEffect(() => {
+  
+        console.log('1st time')
         document.getElementById('allPost')?.parentElement?.scrollTo(0,scroll.position.posY);
       }, [])
 
       useEffect(() => {
+        if (isFetching) {
+            return;
+        }
+        console.log('set search key')
         setSearchKey(search.searchKey)
       }, [search.searchKey])
 
-      const clearAll = () => {
-        setDelIds([])
-        setSoftDelIds([])
-        setRestoringIds([])
-      }
-
       // on searching...
       useEffect(() => {
+        if (isFetching) {
+            return;
+        }
+          console.log('do search')
         doSearch()
       }, [searchKey])
 
@@ -89,10 +93,15 @@ const ListPost = ({isAuth}) => {
 
       // on moving to trash...
       useEffect(() => {
+        if (isFetching) {
+            return;
+        }
+        console.log('check trash')
         movingToTrashNow(trash.active)
       }, [trash.active])
       
       const movingToTrashNow = async (isInTrash)  => {
+          console.log(isInTrash)
         clearAll()
         setIsInTrash(!isInTrash)
         await refetch()
@@ -125,6 +134,12 @@ const ListPost = ({isAuth}) => {
     const editPost = async (id) => {
         navigate('/kuteblog/editpost/' + id)
     }
+
+    const clearAll = () => {
+        setDelIds([])
+        setSoftDelIds([])
+        setRestoringIds([])
+      }
 
     return (
         <Box id='allPost' bg='yellowgreen' pt='2' pb='2' mb='5'>
