@@ -1,9 +1,9 @@
 import { ArrowBackIcon } from "@chakra-ui/icons"
-import { Box, Button, Container, Flex, Spacer } from "@chakra-ui/react"
+import { Box, Button, Center, Container, Flex, Spacer } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 
 
-const ABasePage = ({isAuth, setIsAuth, showBack, nav, actionButtons, content,}) => {
+const ABasePage = ({isAuth, setIsAuth, showBack, nav, actionButtons, content, isLoading, error}) => {
 
     const navigate = useNavigate()
 
@@ -31,7 +31,7 @@ const ABasePage = ({isAuth, setIsAuth, showBack, nav, actionButtons, content,}) 
 
             {/* Body */}
             <Box h='calc(100% - (50px))' overflowY={'auto'} p='2'>
-                {content}
+                {error ? error : (isLoading ? <Center mt='20'>Đợi xíu...</Center> : content)}
             </Box>
         </Container>
     )

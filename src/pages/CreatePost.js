@@ -7,9 +7,22 @@ import { Box, Button, Container, Flex, Input, Spacer, Text, Textarea } from '@ch
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import ABasePage from './ABasePage'
 
+import { createEditor } from 'slate'
+// Import the Slate components and React plugin.
+import { Slate, Editable, withReact } from 'slate-react'
+
+import ReactQuill from 'react-quill'; // ES6
+import 'react-quill/dist/quill.snow.css'; 
+
 function CreatePost({ isAuth }) {
   const [title, setTitle] = useState("")
   const [post, setPost] = useState("")
+
+  const [editor] = useState(() => withReact(createEditor()))
+  const initialValue = [{
+    type: 'paragraph',
+    children: [{ text: 'A line of text in a paragraph.' }],
+  },]
 
   const postsCollectionRef = collection(db, 'posts')
 
@@ -30,7 +43,7 @@ function CreatePost({ isAuth }) {
     if (!isAuth) {
       navigate('/kuteblog/login')
     }
-  }, [])
+  })
 
   return (
     <ABasePage actionButtons={<Button onClick={postToFirebase} bg='yellowgreen'>Post</Button>}
@@ -39,11 +52,18 @@ function CreatePost({ isAuth }) {
                         <Box>
                             <Input placeholder='Input title' onChange={(event) => {setTitle(event.target.value)}} ></Input>
                         </Box>
-                        <Box pt='2'>
+                        {/* <Box pt='2'>
                             <Textarea onChange={(event) => {setPost(event.target.value)}} 
                                         rows='20'
                                         placeholder='How is your day ^_^ ?'>
                             </Textarea>
+                        </Box> */}
+
+                        <Box background='green.50'>
+                          <ReactQuill value={post} 
+                                      onChange={(value) => {setPost(value)}} 
+                                      theme="bubble"
+                                      />
                         </Box>
                     </>
                 }>

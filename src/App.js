@@ -15,7 +15,7 @@ function App() {
     return <Router>
       <Routes>
         <Route path='/kuteblog' element={ <Home isAuth={isAuth} setIsAuth={setIsAuth} /> } />
-        <Route path='/kuteblog/createpost' element={ <CreatePost isAuth={isAuth} /> } />
+        <Route path='/kuteblog/createpost' element={ <EditPost isAuth={isAuth} /> } />
         <Route path='/kuteblog/editpost' element={ <EditPost isAuth={isAuth} /> } >
             <Route path=':postId' element={ <EditPost isAuth={isAuth} /> } ></Route>
         </Route>

@@ -11,15 +11,19 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import scrollReducer from "./reducer/scrollReducer";
+import searchReducer from "./reducer/searchReducer";
 
 // QUERY CACHE
 import { QueryClient, QueryClientProvider } from "react-query";
+import trashReducer from "./reducer/trashReducer";
 
 const queryClient = new QueryClient();
 
 const store = configureStore({
     reducer: { 
       scroll: scrollReducer, 
+      search: searchReducer,
+      trash: trashReducer,
     }
 })
 
