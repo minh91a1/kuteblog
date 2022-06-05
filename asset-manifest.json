@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/kuteblog/static/css/main.e21f7228.css",
-    "main.js": "/kuteblog/static/js/main.ca5fca2f.js",
+    "main.js": "/kuteblog/static/js/main.a1b3b239.js",
     "static/js/787.4d2780d5.chunk.js": "/kuteblog/static/js/787.4d2780d5.chunk.js",
     "index.html": "/kuteblog/index.html",
     "main.e21f7228.css.map": "/kuteblog/static/css/main.e21f7228.css.map",
-    "main.ca5fca2f.js.map": "/kuteblog/static/js/main.ca5fca2f.js.map",
+    "main.a1b3b239.js.map": "/kuteblog/static/js/main.a1b3b239.js.map",
     "787.4d2780d5.chunk.js.map": "/kuteblog/static/js/787.4d2780d5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e21f7228.css",
-    "static/js/main.ca5fca2f.js"
+    "static/js/main.a1b3b239.js"
   ]
 }
