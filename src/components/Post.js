@@ -16,6 +16,9 @@ import { useSelector, useDispatch } from "react-redux"
 import { save } from "../reducer/scrollReducer"
 import useFetchCollection from "../hooks/useFetchCollection"
 
+import useFetchMutation from "../hooks/useFetchMutation"
+import { METHOD } from "../utils/fetcher.js"
+
 export default function Post({
   isAuth,
   post,
@@ -23,29 +26,33 @@ export default function Post({
   softDelIds,
   restoringIds,
   isInTrash,
+  onDeletePostCallback,
 }) {
+  const onDeletePostSuccess = () => {
+    onDeletePostCallback()
+  }
+  const onCompleted = () => {}
+
   const navigate = useNavigate()
 
+  const {
+    submit: deletePostSubmit,
+    isSubmitting,
+    hasError,
+  } = useFetchMutation(
+    METHOD.DELETE,
+    "post" + (post.id ? "/" + post.id : ""),
+    onDeletePostSuccess,
+    onCompleted
+  )
+
   const deletePost = async (id, del) => {
-    // if (del) {
-    //   // permanent delete !
-    //   const postDoc = doc(db, "posts", id)
-    //   setDelIds([...delIds, id])
-    //   await deleteDoc(postDoc)
-    // } else {
-    //   // soft del !
-    //   const updateDelDocRef = doc(db, "posts", id)
-    //   setSoftDelIds([...softDelIds, id])
-    //   await updateDoc(updateDelDocRef, { del: true })
-    // }
-    // refetch()
+    //TODO: delete post
+    deletePostSubmit()
   }
 
   const restorePost = async (id) => {
-    // const updateDelDocRef = doc(db, "posts", id)
-    // setRestoringIds([...restoringIds, id])
-    // await updateDoc(updateDelDocRef, { del: false })
-    // refetch()
+    //TODO: restore post
   }
 
   const editPost = async (id) => {
@@ -54,13 +61,13 @@ export default function Post({
 
   return (
     <Box
+      key={post.id}
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       p="3"
       m="6"
       bg={"white"}
-      key={post.id}
     >
       <Center mb={"2"}>
         <Heading size={"sm"}>{post.title}</Heading>
@@ -87,6 +94,8 @@ export default function Post({
       <Flex mt="4">
         <Spacer />
         {isAuth &&
+          auth &&
+          auth.currentUser &&
           post.authorId === auth.currentUser.uid &&
           delIds.indexOf(post.id) === -1 &&
           softDelIds.indexOf(post.id) === -1 &&
@@ -112,6 +121,8 @@ export default function Post({
           )}
 
         {isAuth &&
+          auth &&
+          auth.currentUser &&
           post.authorId === auth.currentUser.uid &&
           delIds.indexOf(post.id) === -1 &&
           softDelIds.indexOf(post.id) === -1 &&

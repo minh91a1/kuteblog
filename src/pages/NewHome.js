@@ -11,7 +11,11 @@ import { Button, Spacer, Input } from "@chakra-ui/react"
 import ABasePage from "./ABasePage"
 import ListPost from "../components/ListPost"
 
+import { useAuth } from "../hooks/useAuth.js"
+
 const NewHome = ({ isAuth, setIsAuth }) => {
+  const { pending, isSignedIn, user, auth } = useAuth()
+  console.log("isAuth:", isAuth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -46,6 +50,10 @@ const NewHome = ({ isAuth, setIsAuth }) => {
 
   const toggleTrash = () => {
     dispatch(openTrash(!isInTrash.active))
+  }
+
+  if (pending) {
+    return <>Authorizing...</>
   }
 
   return (

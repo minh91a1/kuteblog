@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import NewHome from "./pages/NewHome"
 import CreatePost from "./pages/CreatePost"
 import EditPost from "./pages/EditPost"
+import NewCreateEditPost from "./pages/NewCreateEditPost"
 import Login from "./pages/Login"
 import { useState } from "react"
 import { signOut } from "firebase/auth"
@@ -26,15 +27,15 @@ function App() {
           />
           <Route
             path="/kuteblog/createpost"
-            element={<EditPost isAuth={isAuth} />}
+            element={<NewCreateEditPost isAuth={isAuth} />}
           />
           <Route
             path="/kuteblog/editpost"
-            element={<EditPost isAuth={isAuth} />}
+            element={<NewCreateEditPost isAuth={isAuth} />}
           >
             <Route
               path=":postId"
-              element={<EditPost isAuth={isAuth} />}
+              element={<NewCreateEditPost isAuth={isAuth} />}
             ></Route>
           </Route>
           <Route

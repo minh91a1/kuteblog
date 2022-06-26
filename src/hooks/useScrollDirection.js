@@ -4,7 +4,7 @@ export const SCROLL_DIRECTION_DOWN = "SCROLL_DIRECTION_DOWN"
 export const SCROLL_DIRECTION_UP = "SCROLL_DIRECTION_UP"
 export const SCROLL_DIRECTION_NONE = "SCROLL_DIRECTION_NONE"
 
-export const useScrollDirection = callback => {
+export const useScrollDirection = (callback) => {
   const [lastYPosition, setLastYPosition] = useState(window.pageYOffset)
   const [timer, setTimer] = useState(null)
 
@@ -35,9 +35,13 @@ export const useScrollDirection = callback => {
   })
 }
 
-export const useScrollPosition = callback => {
+export const useScrollPosition = (callback) => {
   const handleScroll = (ev) => {
-    callback(ev.originalTarget.scrollTop, ev.originalTarget.scrollTop + ev.originalTarget.offsetHeight, ev.originalTarget.scrollHeight)
+    callback(
+      ev.target.scrollTop,
+      ev.target.scrollTop + ev.target.offsetHeight,
+      ev.target.scrollHeight
+    )
   }
 
   useEffect(() => {
