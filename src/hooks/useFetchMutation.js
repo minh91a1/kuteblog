@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useMutation } from "react-query"
-import { fetchMutation } from "../utils/fetcher"
+import { fetchMutation2 } from "../utils/fetcher"
 
 const useFetchMutation = (method, api, onSuccessCallback, onCompleted) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -8,7 +8,11 @@ const useFetchMutation = (method, api, onSuccessCallback, onCompleted) => {
   const [isSuccess, setIsSuccess] = useState(false)
   const mutation = useMutation(
     (payload) => {
-      return fetchMutation(method, process.env.REACT_APP_API_URL + api, payload)
+      return fetchMutation2(
+        method,
+        process.env.REACT_APP_API_URL + api,
+        payload
+      )
     },
     {
       onMutate: (variables) => {

@@ -10,6 +10,7 @@ import useFetchMutation from "../hooks/useFetchMutation"
 import useFetchOne from "../hooks/useFetchOne"
 import { useAuth } from "../hooks/useAuth.js"
 import { METHOD } from "../utils/fetcher.js"
+import ImageUploader from "../widgets/ImageUploader"
 
 function EditPost({ isAuth }) {
   const onUpdatePostSuccess = () => {
@@ -17,11 +18,14 @@ function EditPost({ isAuth }) {
   }
   const onCompleted = () => {}
 
+  const imageRef = useRef(null)
   const editorRef = useRef(null)
   const params = useParams()
   const { pending, isSignedIn, user, auth } = useAuth()
+
   const [title, setTitle] = useState("")
   const [post, setPost] = useState("")
+  const [imagePath, setImagePath] = useState("")
 
   const { isLoading, data, error } = useFetchOne("post", params.postId)
 
@@ -54,9 +58,11 @@ function EditPost({ isAuth }) {
 
     //* authorId
     const authorId = auth.currentUser.uid
+    let img = imageRef.current.get()
 
     const payload = {
       title,
+      imagePath: img, //! payload should have exact name (for upload.single("imagePath"))
       post: myContent,
       shortPost: plainText,
       authorId,
@@ -67,8 +73,10 @@ function EditPost({ isAuth }) {
 
   useEffect(() => {
     if (data && data.length > 0) {
-      if (data[0].title) setTitle(data[0].title)
-      if (data[0].post) setPost(data[0].post)
+      let postData = data[0]
+      if (postData.title) setTitle(postData.title)
+      if (postData.post) setPost(postData.post)
+      if (postData.imagePath) setImagePath(postData.imagePath)
     }
   }, [data])
 
@@ -114,13 +122,15 @@ function EditPost({ isAuth }) {
             ></Input>
           </Box>
 
+          <ImageUploader ref={imageRef} value={imagePath} />
+
           <Box background="green.50">
             <Editor
               apiKey="qquo11hnj7kfwwjjusbrxt69wlxe0l24c3dyehw7a57j0vpm"
               onInit={(evt, editor) => (editorRef.current = editor)}
               initialValue={post}
               init={{
-                height: 800,
+                height: 350,
 
                 menubar: true,
 

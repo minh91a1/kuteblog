@@ -72,6 +72,19 @@ export default function Post({
       <Center mb={"2"}>
         <Heading size={"sm"}>{post.title}</Heading>
       </Center>
+      <Center mt={2} mb={2}>
+        <Center rounded="md" overflow={"hidden"}>
+          <img
+            style={{ maxHeight: "200px" }}
+            src={
+              post.imagePath
+                ? process.env.REACT_APP_API_URL + post.imagePath
+                : ""
+            }
+            alt=""
+          />
+        </Center>
+      </Center>
       <Box borderWidth={"1px"} borderRadius="lg" p="2" bg={"gray.50"}>
         <Text as="i">{post.shortPost}</Text>
       </Box>
