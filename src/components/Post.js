@@ -1,5 +1,5 @@
-import { React, useState, useEffect } from "react"
-import { auth, db } from "../firebase-config"
+import { React } from "react"
+import { auth } from "../firebase-config"
 import {
   Button,
   Center,
@@ -11,10 +11,6 @@ import {
 } from "@chakra-ui/react"
 import { CloseIcon, EditIcon, ArrowUpIcon, DeleteIcon } from "@chakra-ui/icons"
 import { useNavigate } from "react-router-dom"
-import { useScrollPosition } from "../hooks/useScrollDirection"
-import { useSelector, useDispatch } from "react-redux"
-import { save } from "../reducer/scrollReducer"
-import useFetchCollection from "../hooks/useFetchCollection"
 
 import useFetchMutation from "../hooks/useFetchMutation"
 import { METHOD } from "../utils/fetcher.js"
@@ -37,8 +33,8 @@ export default function Post({
 
   const {
     submit: deletePostSubmit,
-    isSubmitting,
-    hasError,
+    // isSubmitting,
+    // hasError,
   } = useFetchMutation(
     METHOD.DELETE,
     "post" + (post.id ? "/" + post.id : ""),
@@ -47,7 +43,6 @@ export default function Post({
   )
 
   const deletePost = async (id, del) => {
-    //TODO: delete post
     deletePostSubmit()
   }
 
@@ -62,12 +57,12 @@ export default function Post({
   return (
     <Box
       key={post.id}
-      borderWidth="1px"
+      boxShadow="md"
       borderRadius="lg"
       overflow="hidden"
       p="3"
       m="6"
-      bg={"white"}
+      bg="white"
     >
       <Center mb={"2"}>
         <Heading size={"sm"}>{post.title}</Heading>

@@ -1,15 +1,9 @@
 import "./App.css"
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
-import Home from "./pages/Home"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import NewHome from "./pages/NewHome"
-import CreatePost from "./pages/CreatePost"
-import EditPost from "./pages/EditPost"
 import NewCreateEditPost from "./pages/NewCreateEditPost"
 import Login from "./pages/Login"
 import { useState } from "react"
-import { signOut } from "firebase/auth"
-import { auth } from "./firebase-config"
-import { useNavigate } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 
 const queryClient = new QueryClient()

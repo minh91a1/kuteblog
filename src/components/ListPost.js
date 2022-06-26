@@ -63,7 +63,6 @@ const ListPost = ({ isAuth, isInTrash }) => {
     if (status === "loading") {
       return
     }
-    //TODO: console.log("do search")
     doSearch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchKey])

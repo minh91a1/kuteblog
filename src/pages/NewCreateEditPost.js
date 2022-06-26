@@ -21,7 +21,7 @@ function EditPost({ isAuth }) {
   const imageRef = useRef(null)
   const editorRef = useRef(null)
   const params = useParams()
-  const { pending, isSignedIn, user, auth } = useAuth()
+  const { pending, auth } = useAuth()
 
   const [title, setTitle] = useState("")
   const [post, setPost] = useState("")
@@ -59,12 +59,15 @@ function EditPost({ isAuth }) {
     //* authorId
     const authorId = auth.currentUser.uid
     let img = imageRef.current.get()
+    if (img === null || img === undefined) {
+      img = imagePath
+    }
 
     const payload = {
       title,
       imagePath: img, //! payload should have exact name (for upload.single("imagePath"))
       post: myContent,
-      shortPost: plainText,
+      shortPost: plainText.substring(0, 250),
       authorId,
     }
 
@@ -91,6 +94,7 @@ function EditPost({ isAuth }) {
         isClosable: true,
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasError])
 
   useEffect(() => {
